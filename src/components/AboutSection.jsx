@@ -1,85 +1,76 @@
-"use client"
-import Image from 'next/image';
-import React,{useTransition, useState} from 'react';
-import TabButton  from './TabButton';
+"use client";
+import React, { useTransition, useState } from "react";
+import Image from "next/image";
+import TabButton from "./TabButton";
 
-const TAB_DATA =[
+const TAB_DATA = [
   {
-    title:"Skills",
-    id:"skills",
-    content:(
-      <ul>
+    title: "Skills",
+    id: "skills",
+    content: (
+      <ul className="list-disc pl-2">
         <li>Java</li>
         <li>JavaScript</li>
+        <li>React</li>
         <li>Node.js</li>
+        <li>Express</li>
         <li>MongoDB</li>
-        <li>React.js</li>
-        <li>Data Structure and Algorithm</li>
-        <li>Salesforce customization and configuration</li>
       </ul>
-    )
+    ),
   },
   {
-      title:"Educations",
-      id:"education",
-      content:(
-        <ul>
-          <li>Lovely Professional University</li>
-          <li>Elite Institute of Science and Applications</li>
-        </ul>
-      )
-
+    title: "Education",
+    id: "education",
+    content: (
+      <ul className="list-disc pl-2">
+        <li>Lovely Professional University 2022</li>
+      </ul>
+    ),
   },
   {
-    title:"Certifications",
-    id:"certifications",
-    content:(
-      <ul>
-        <li>Full Stack Bootcamp 2021</li>
+    title: "Certifications",
+    id: "certifications",
+    content: (
+      <ul className="list-disc pl-2">
+        <li>Full Stack Development 2021</li>
         <li>Platform Developer 1</li>
-        <li>System Administrator</li>
+        <li>Salesforce Administration</li>
         <li>Platform App Builder</li>
       </ul>
-    )
-  }
-]
-
+    ),
+  },
+];
 
 const AboutSection = () => {
-  
-  const[tab,setTab] =useState("skills");
-  const[startTranstion,isPending] = useTransition();
+  const [tab, setTab] = useState("skills");
+  const [isPending, startTransition] = useTransition();
 
   const handleTabChange = (id) => {
-    setTab(id); // Simply update the tab state
+    startTransition(() => {
+      setTab(id);
+    });
   };
+
   return (
-   <section className='text-white'>
-    <div className='md:grid md:grid-cols-2 gap-8 items-center py-4 px-4 xl:gap-16 sm:py-16 xl:px-16'>
-    <Image 
+    <section className="text-white" id="about">
+      <div className="md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
+      <Image 
       src="/image/about-image.png"
       alt='about'
       width={500}
       height={500}
+      className="rounded-full shadow-2xl transform transition-all duration-500 ease-in-out group-hover:scale-105 group-hover:rotate-3"
     />
-    <div>
-    <h2 className='text-4xl font-bold text-white mb-4'>About Me</h2>
-    <p className="text-base lg:text-lg">
-As a Computer Science and Engineering graduate from Lovely Professional University, 
-I have cultivated a strong foundation in coding and software development. My professional journey began at Cognizant
-, where I transitioned from an intern to a full-time employee, gaining hands-on experience and honing my technical skills.
-
-I am passionate about coding and have extensive experience working with data structures and algorithms.
-My expertise spans web development, particularly with React.js and MongoDB, as well as Salesforce development, 
-where I focus on both configuration and customization.
-
- Beyond my professional life, I am an avid tea lover and enjoy engaging in sports such as football and cricket.
- These interests help me maintain a balanced and active lifestyle, which in turn fuels my creativity and
- problem-solving abilities in my work.
- 
-    </p>
-    <div className='flex flex-row justify-start mt-8'>
-    <TabButton
+        <div className="mt-4 md:mt-0 text-left flex flex-col h-full">
+          <h2 className="text-4xl font-bold text-white mb-4">About Me</h2>
+          <p className="text-[#ADB7BE] text-justify leading-relaxed max-w-lg">
+    I am a full stack web developer with a passion for creating interactive and responsive web applications. 
+    I have experience working with JavaScript, React, Redux, Node.js, Express, PostgreSQL, Sequelize, HTML, CSS, and Git.
+    I am a quick learner and I am always looking to expand my knowledge and skill set. I am a team player and I am excited 
+    to work with others to create amazing applications.
+  </p>
+          <div className="flex flex-row justify-start mt-8">
+            <TabButton
               selectTab={() => handleTabChange("skills")}
               active={tab === "skills"}
             >
@@ -100,14 +91,14 @@ where I focus on both configuration and customization.
               {" "}
               Certifications{" "}
             </TabButton>
-    </div>
+          </div>
+          <div className="mt-8">
+            {TAB_DATA.find((t) => t.id === tab).content}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
-    <div className='mt-8'>{TAB_DATA.find((t)=>t.id===tab).content}</div>
-    </div>
-    
-    </div>
-   </section>
-  )
-}
-
-export default AboutSection
+export default AboutSection;

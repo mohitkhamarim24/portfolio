@@ -91,4 +91,4 @@ const EmailSection = () => {
   </section>
 }
 
-export default EmailSection
+export default EmailSection;
